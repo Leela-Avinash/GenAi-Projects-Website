@@ -393,61 +393,7 @@ history = caption_model.fit(
     callbacks=[early_stopping]
 )
 
-caption_model.save('ImageCaptioningModel.h5')
-caption_model.save('ImageCaptioningModel.keras')
+caption_model.save_weights('image_captioning_transformer_weights.h5')
 architecture_json = caption_model.to_json()
 with open("model_architecture.json", "w") as json_file:
     json_file.write(architecture_json)
-
-idx2word(2).numpy().decode('utf-8')
-
-def load_image_from_path(img_path):
-    img = tf.io.read_file(img_path)
-    img = tf.io.decode_jpeg(img, channels=3)
-    img = tf.keras.layers.Resizing(299, 299)(img)
-    img = tf.cast(img, dtype=tf.float32)
-    img = img / 255.
-    return img
-
-def generate_caption(img_path):
-    img = load_image_from_path(img_path)
-    img = tf.expand_dims(img, axis=0)
-    img_embed = caption_model.cnn_model(img)
-    img_encoded = caption_model.encoder(img_embed, training=False)
-
-    y_inp = '[start]'
-    for i in range(MAX_LENGTH-1):
-        tokenized = tokenizer([y_inp])[:, :-1]
-        mask = tf.cast(tokenized != 0, tf.int32)
-        pred = caption_model.decoder(
-            tokenized, img_encoded, training=False, mask=mask)
-        
-        pred_idx = np.argmax(pred[0, i, :])
-        pred_word = idx2word(pred_idx).numpy().decode('utf-8')
-        if pred_word == '[end]':
-            break
-        
-        y_inp += ' ' + pred_word
-    
-    y_inp = y_inp.replace('[start] ', '')
-    return y_inp
-
-idx = random.randrange(0, len(val_imgs))
-img_path = val_imgs[idx]
-
-pred_caption = generate_caption(img_path)
-print('Predicted Caption:', pred_caption)
-print()
-im = Image.open(img_path)
-im.show()
-
-url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2j6yclbKYDav4BGUKLAdTvSFXp1gtuzy5DQ&usqp=CAU"
-im = Image.open(requests.get(url, stream=True).raw)
-im.save('tmp.jpg')
-
-pred_caption = generate_caption('tmp.jpg')
-print('Predicted Caption:', pred_caption)
-print()
-im.show()
-
-caption_model.save_weights('image_captioning_transformer_weights.h5')

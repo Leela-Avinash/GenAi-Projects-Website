@@ -24,6 +24,17 @@ $(document).ready(function () {
         handleFiles(files);
     });
 
+    $("#menu-icon").click(function () {
+        $("#menu-icon").toggleClass("bx-x");
+        $(".navlist").toggleClass("open");
+    });
+    
+    $(window).scroll(function () {
+        $("#menu-icon").removeClass("bx-x");
+        $(".navlist").removeClass("open");
+    });
+    
+
     $("#file-input").on("change", function () {
         let files = this.files;
         handleFiles(files);

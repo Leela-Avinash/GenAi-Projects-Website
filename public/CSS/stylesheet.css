@@ -120,7 +120,6 @@ img {
 #bottom-container {
     width: 100%;
     row-gap: 30px;
-    justify-content: space-around;
 }
 
 footer {
@@ -128,7 +127,7 @@ footer {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    background-color: #ffffff;
+    background-color: #f2f4f8;
 }
 
 #foot-id {
@@ -171,5 +170,15 @@ footer {
     }
     footer{
         margin-bottom: 10px;
+    }
+}
+@media (max-width: 770px){
+    #bottom-container{
+        flex-direction: column;
+        align-items: center;
+    }
+    .col{
+        display: flex;
+        justify-content: center;
     }
 }
