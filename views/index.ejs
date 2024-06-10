@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Learning Projects</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b2b1bff26c.js" crossorigin="anonymous"></script>
+    <link href="CSS/stylesheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap" />
+            </svg>
+            <h4>Deep Learning Projects</h4>
+        </a>
+
+        <ul class="nav nav-pills" id="nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link" aria-current="page">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link active">Image Caption Generator</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">New Models Coming Soon...</a>
+            </li>
+        </ul>
+        <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card text-center p-4">
+            <h4 class="mb-4">Generate Caption to any Image</h4>
+            <form action="/" method="post" id="upload-form" enctype="multipart/form-data">
+                <div class="upload-area" id="uploadfile">
+                    <p>
+                        Drag images here or
+                        <a href="#" id="upload-link">upload files</a>
+                    </p>
+                    <input type="file" id="file-input" name="images" multiple style="display: none" />
+                    <div id="image-previews">
+                        <img src="Images/252.gif" alt="" id="load">
+                    </div>
+                </div>
+                <p class="mt-4">OR</p>
+                <div>
+                    <input type="text" id="image-link" name="imageUrls" class="form-control" placeholder="Paste image link" style="background-color: #f2f4f8;"/>
+                </div>
+                <button type="submit" class="btn btn-primary mt-4" id="submit">Generate Caption</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="bottom-container">
+        <% images.forEach(function(image) { %>
+        <div class="col">
+            <div class="card h-100" id="sub-card">
+                <img src="<%= image.path %>" class="card-img-top" alt="..." />
+                <div class="card-body">
+                    <h5 class="card-title">Image Caption</h5>
+                    <p class="card-text"><%= image.caption.replace(/^["']|["']$/g, '').trim() %></p>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+    <footer>
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <h6 class="mb-3 mb-md-0 text-muted">© 2022 Company, Inc</h6>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex" id="foot-id">
+            <li class="ms-3">
+                <a class="text-muted" href="https://github.com/Leela-Avinash" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+            </li>
+            <li class="ms-3">
+                <a class="text-muted" href="https://www.instagram.com/leela.avinash/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </li>
+            <li class="ms-3">
+                <a class="text-muted" href="https://www.linkedin.com/in/leela-avinash-badam/" target="_blank"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="JS/script.js"></script>
+</body>
+</html>
