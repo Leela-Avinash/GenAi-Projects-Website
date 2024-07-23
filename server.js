@@ -70,7 +70,7 @@ app.post('/', upload.array('images', 10), async function (req, res) {
     }
 
     console.log('Uploaded file paths: ', filePaths);
-    const pythonProcess = spawn('python', ['test.py', ...filePaths]);
+    const pythonProcess = spawn('python', ['./models/ImageCaption.py', ...filePaths]);
 
     let captions = '';
 
